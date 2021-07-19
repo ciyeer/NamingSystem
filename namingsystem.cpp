@@ -18,13 +18,13 @@ NamingSystem::NamingSystem(QWidget *parent) :
     setWindowFlags(Qt::FramelessWindowHint);
 
     // print log test, you can transfer any param to do format
-    int param = 1;
+//    int param = 1;
 
-    LOG_TRACE("this is trace log record, param: {}", ++param); // int type param is ok
-    LOG_DEBUG("this is debug log record, param: {}", ++param);
-    LOG_INFO("this is info log record, param: {}", ++param);
-    LOG_WARNING("this is warn log record, param: {}", double(++param)); // double type param is ok
-    LOG_ERROR("this is error log record, param: {}", std::to_string(++param)); // string type param is ok
+//    LOG_TRACE("this is trace log record, param: {}", ++param); // int type param is ok
+//    LOG_DEBUG("this is debug log record, param: {}", ++param);
+//    LOG_INFO("this is info log record, param: {}", ++param);
+//    LOG_WARNING("this is warn log record, param: {}", double(++param)); // double type param is ok
+//    LOG_ERROR("this is error log record, param: {}", std::to_string(++param)); // string type param is ok
 
     QMap<int, QString> m = getIdInterToName(m_strExcelFileName);
     QMap<QString, QString> mapTopath = getIdInterToPath(m_strExcelFileName);
@@ -222,6 +222,7 @@ void NamingSystem::on_btnChoose_clicked()
     // for (int i=0; i<fileList.count();i++)
     //    ui->fileNameLabel->setText(fileList.at(i));
     m_strExcelFileName = QFileDialog::getOpenFileName(this,dlgTitle,curPath,filter);
+    LOG_INFO("select invailed excel file!");
 }
 
 void NamingSystem::on_btnClose_clicked()
