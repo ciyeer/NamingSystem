@@ -11,7 +11,7 @@
 #include "spdlog/sinks/basic_file_sink.h"
 #include "spdlog/sinks/rotating_file_sink.h"
 
-
+#if 0
 static inline int nowTimeToInt()
 {
     time_t now;
@@ -27,6 +27,7 @@ static inline int nowTimeToInt()
     int now_int = p.tm_hour * 10000 + p.tm_min * 100 + p.tm_sec;
     return now_int;
 }
+#endif
 
 static inline int nowDateToInt()
 {
@@ -59,6 +60,7 @@ static inline int nowMonTime()
     return now_mon;
 }
 
+#if 0
 static inline int nowDayTime()
 {
     time_t now;
@@ -73,6 +75,7 @@ static inline int nowDayTime()
     int now_day = p.tm_mday;
     return now_day;
 }
+#endif
 
 static inline int nowYearTime()
 {
@@ -116,9 +119,6 @@ private:
 
         try
         {
-            // const std::string logger_name = logger_name_prefix + std::to_string(date) + "_" + std::to_string(time);
-            //const std::string logger_name = std::to_string(nowMonTime()) + std::to_string(nowDayTime());
-
             const std::string logger_name = std::to_string(nowDateToInt());
             if (console)
                 m_logger = spdlog::stdout_color_st(logger_name); // single thread console output faster
@@ -166,8 +166,9 @@ private:
         spdlog::drop_all(); // must do this
     }
 
-    void *operator new(size_t size){
-
+    void *operator new(size_t /*size*/){
+        void *p = nullptr;
+        return p;
     }
 
     Logger(const Logger&) = delete;
