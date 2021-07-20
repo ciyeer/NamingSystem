@@ -124,16 +124,17 @@ private:
         bool console = false;
 
         // decide the log level
-        //LEVEL level = DEBUG;
+        // LEVEL level = DEBUG;
 
         try
         {
             const std::string logger_name = std::to_string(nowDateToInt());
             if (console)
                 m_logger = spdlog::stdout_color_st(logger_name); // single thread console output faster
-            else
-                m_logger = spdlog::create_async<spdlog::sinks::rotating_file_sink_mt>(logger_name, log_dir + "/" + logger_name + ".log", 100 * 1024 * 1024, 1000); // multi part log files, with every part 500M, max 1000 files
-
+            else{
+                // multi part log files, with every part 50M, max 500 files
+                m_logger = spdlog::create_async<spdlog::sinks::rotating_file_sink_mt>(logger_name, log_dir + "/" + logger_name + ".log", 50 * 1024 * 1024, 500);
+            }
             // custom format
 
             m_logger->set_pattern("[%Y-%m-%d %H:%M:%S] [%l] %v"); // with timestamp, thread_id, filename
