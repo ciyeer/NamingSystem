@@ -16,7 +16,7 @@ NamingSystem::NamingSystem(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
-
+    setWindowIcon(QIcon(":/image/baoxincai.svg"));
     QMap<int, QString> m = getIdInterToName(m_strExcelFileName);
     QMap<QString, QString> mapTopath = getIdInterToPath(m_strExcelFileName);
     qsrand(QTime(0, 0, 0).secsTo(QTime::currentTime()));

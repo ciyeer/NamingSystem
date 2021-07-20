@@ -33,5 +33,6 @@
         <file>image/31.jpg</file>
         <file>image/32.jpg</file>
         <file>image/logo.ico</file>
+        <file>image/baoxincai.svg</file>
     </qresource>
 </RCC>
