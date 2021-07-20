@@ -222,7 +222,7 @@ void NamingSystem::on_btnChoose_clicked()
     // for (int i=0; i<fileList.count();i++)
     //    ui->fileNameLabel->setText(fileList.at(i));
     m_strExcelFileName = QFileDialog::getOpenFileName(this,dlgTitle,curPath,filter);
-    LOG_INFO("select invailed excel file!");
+    LOG_WARNING("select invailed excel file!");
 }
 
 void NamingSystem::on_btnClose_clicked()
