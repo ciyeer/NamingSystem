@@ -192,13 +192,11 @@ NamingSystem::~NamingSystem(){
 void NamingSystem::on_btnChoose_clicked(){
     //获取应用程序的路径
     QString curPath = QDir::currentPath(); // 获取系统当前目录
-    QString dlgTitle= "选择文件";  // 对话框标题
+    QString dlgTitle = "选择文件";  // 对话框标题
     QString filter = "表格文件(*.xlsx *.xls);;所有文件(*.*)"; // 文件过滤器
-
     if(QFileDialog::getOpenFileName(this, dlgTitle, curPath, filter) == ""){
         LOG_WARNING("select invailed excel file path!");
     }
-    // m_strExcelFileName = QFileDialog::getOpenFileName(this,dlgTitle,curPath,filter);
 }
 
 void NamingSystem::on_btnClose_clicked(){

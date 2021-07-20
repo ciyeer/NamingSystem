@@ -8,13 +8,8 @@
 class Config
 {
 public:
-    //    qDebug() << QDir::currentPath();
-    //    qDebug() << QDir::homePath();
-    //    qDebug() << QDir::rootPath();
-    //    qDebug() << QDir::tempPath();
 
     explicit Config(QString strPath = QCoreApplication::applicationDirPath());
-    // explicit Config(QString strPath = QDir::currentPath());
     ~Config();
 
 public:

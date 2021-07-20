@@ -10,10 +10,9 @@ class CommonHelper
 {
 public:
     static void setCustomStyle(const QString &strpath){
-        qDebug() << strpath;
         QFile qss(strpath);
         if(!qss.open(QFile::ReadOnly)){
-            qDebug("Open failed");
+            qDebug("Open qss file failed");
             return ;
         }
         else{
