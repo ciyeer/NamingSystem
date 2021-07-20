@@ -17,15 +17,6 @@ NamingSystem::NamingSystem(QWidget *parent) :
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
 
-    // print log test, you can transfer any param to do format
-//    int param = 1;
-
-//    LOG_TRACE("this is trace log record, param: {}", ++param); // int type param is ok
-//    LOG_DEBUG("this is debug log record, param: {}", ++param);
-//    LOG_INFO("this is info log record, param: {}", ++param);
-//    LOG_WARNING("this is warn log record, param: {}", double(++param)); // double type param is ok
-//    LOG_ERROR("this is error log record, param: {}", std::to_string(++param)); // string type param is ok
-
     QMap<int, QString> m = getIdInterToName(m_strExcelFileName);
     QMap<QString, QString> mapTopath = getIdInterToPath(m_strExcelFileName);
     qsrand(QTime(0, 0, 0).secsTo(QTime::currentTime()));
@@ -43,6 +34,7 @@ NamingSystem::NamingSystem(QWidget *parent) :
     connect(m_pTimerSwitchImage, &QTimer::timeout, this, &NamingSystem::slotSetScrollImage);
     connect(ui->btnStart, &QPushButton::clicked, this, &NamingSystem::slotBtnStartStopNaming);
 
+    // 写excel
     //    QXlsx::Document xlsx("21041.xlsx");
     //    xlsx.write("A1", "Hello Qt!");
     //    xlsx.write("A2", 12345);
@@ -55,8 +47,7 @@ NamingSystem::NamingSystem(QWidget *parent) :
     //    xlsx.save();
 }
 
-QString NamingSystem::getExcelItemData(QString fileName, QString itemName)
-{
+QString NamingSystem::getExcelItemData(QString fileName, QString itemName){
     QXlsx::Document xlsx(fileName);
     QString itemData = xlsx.read(itemName).toString();
     //qDebug() << "[" << __FUNCTION__ <<__LINE__ << "] :" << itemData;
@@ -64,8 +55,7 @@ QString NamingSystem::getExcelItemData(QString fileName, QString itemName)
 }
 
 // 获取excel的行数
-int NamingSystem::getExcelRowNumber(QString fileName)
-{
+int NamingSystem::getExcelRowNumber(QString fileName){
     // 载入 excel 文件
     QXlsx::Document xlsx(fileName);
     // 减1 是因为表格第一行不是学生信息
@@ -73,8 +63,7 @@ int NamingSystem::getExcelRowNumber(QString fileName)
 }
 
 // 随机显示图片
-void NamingSystem::slotSetScrollImage()
-{
+void NamingSystem::slotSetScrollImage(){
     if(m_strExcelFileName == "")
         return;
     QMap<int, QString> m = getIdInterToName(m_strExcelFileName);
@@ -88,8 +77,7 @@ void NamingSystem::slotSetScrollImage()
 }
 
 // 开始点名
-void NamingSystem::slotBtnStartStopNaming()
-{
+void NamingSystem::slotBtnStartStopNaming(){
     if(m_bNamingFlag == false){
         m_pTimerSwitchImage->start(400);
         ui->btnStart->setText("停止点名");
@@ -101,43 +89,36 @@ void NamingSystem::slotBtnStartStopNaming()
     m_bNamingFlag = !m_bNamingFlag;
 }
 
-void NamingSystem::mousePressEvent(QMouseEvent *event)
-{
+void NamingSystem::mousePressEvent(QMouseEvent *event){
     if (event->button() == Qt::LeftButton) {
         m_bPressedFlag = true;
         m_point = event->globalPos() - this->pos();
     }
 }
 
-void NamingSystem::mouseMoveEvent(QMouseEvent *event)
-{
+void NamingSystem::mouseMoveEvent(QMouseEvent *event){
     if (m_bPressedFlag) {
         move(event->globalPos() - m_point);
     }
 }
 
-void NamingSystem::mouseReleaseEvent(QMouseEvent *event)
-{
+void NamingSystem::mouseReleaseEvent(QMouseEvent *event){
     Q_UNUSED(event)     // 处理声明但没有使用的参数警告
     m_bPressedFlag = false;
 }
 
-QString NamingSystem::getExcelItemData(QString fileName, int row, int col)
-{
+QString NamingSystem::getExcelItemData(QString fileName, int row, int col){
     QString itemData ;
-    if(row < 1 || col < 1)
-    {
+    if(row < 1 || col < 1){
         return "-1";
     }
     QXlsx::Document  xlsx(fileName);/*打开一个 book1 的文件*/
     QStringList sheetList = xlsx.sheetNames();
-    if (sheetList.size() > 0)
-    {
+    if (sheetList.size() > 0){
         itemData = xlsx.read(row, col).toString();
         qDebug() << "[" << __FUNCTION__ <<__LINE__ << "] :" <<  itemData;
     }
-    else
-    {
+    else{
         qDebug() << "[" << __FUNCTION__ <<__LINE__ << "] : read error!" ;
         return "-1";
     }
@@ -145,8 +126,7 @@ QString NamingSystem::getExcelItemData(QString fileName, int row, int col)
     return itemData;
 }
 
-QMap<QString, QString> NamingSystem::getIdInterToPath(QString fileName)
-{
+QMap<QString, QString> NamingSystem::getIdInterToPath(QString fileName){
     //载入 excel 文件
     QXlsx::Document xlsx(fileName);
     // 存储键值对
@@ -169,8 +149,7 @@ QMap<QString, QString> NamingSystem::getIdInterToPath(QString fileName)
     return myMapTopath;
 }
 
-QMap<int, QString> NamingSystem::getIdInterToName(QString fileName)
-{
+QMap<int, QString> NamingSystem::getIdInterToName(QString fileName){
     //载入 excel 文件
     QXlsx::Document xlsx(fileName);
     // 存储键值对
@@ -204,15 +183,13 @@ QMap<int, QString> NamingSystem::getIdInterToName(QString fileName)
     return myMap;
 }
 
-NamingSystem::~NamingSystem()
-{
+NamingSystem::~NamingSystem(){
     delete ui;
     delete  m_pTimerSwitchImage;
     m_pTimerSwitchImage = nullptr;
 }
 
-void NamingSystem::on_btnChoose_clicked()
-{
+void NamingSystem::on_btnChoose_clicked(){
     //获取应用程序的路径
     QString curPath = QDir::currentPath(); // 获取系统当前目录
     QString dlgTitle= "选择文件";  // 对话框标题
@@ -225,7 +202,6 @@ void NamingSystem::on_btnChoose_clicked()
     LOG_WARNING("select invailed excel file!");
 }
 
-void NamingSystem::on_btnClose_clicked()
-{
+void NamingSystem::on_btnClose_clicked(){
     close();
 }
