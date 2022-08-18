@@ -179,7 +179,6 @@ QMap<int, QString> NamingSystem::getIdInterToName(QString fileName){
         }
     }
 
-    // qDebug() << "[" << __FUNCTION__ <<__LINE__ << "] :" <<  myMap;
     return myMap;
 }
 
