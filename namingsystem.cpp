@@ -12,8 +12,7 @@ NamingSystem::NamingSystem(QWidget *parent) :
     m_bPressedFlag(false),
     m_strExcelFileName("21051.xlsx"),
     m_bNamingFlag(false),
-    ui(new Ui::NamingSystem)
-{
+    ui(new Ui::NamingSystem){
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
     setWindowIcon(QIcon(":/image/baoxincai.svg"));
@@ -33,24 +32,11 @@ NamingSystem::NamingSystem(QWidget *parent) :
     m_pTimerSwitchImage = new QTimer(this);
     connect(m_pTimerSwitchImage, &QTimer::timeout, this, &NamingSystem::slotSetScrollImage);
     connect(ui->btnStart, &QPushButton::clicked, this, &NamingSystem::slotBtnStartStopNaming);
-
-    // 写excel
-    //    QXlsx::Document xlsx("21041.xlsx");
-    //    xlsx.write("A1", "Hello Qt!");
-    //    xlsx.write("A2", 12345);
-    //    xlsx.write("A3", "=44+33");
-    //    xlsx.write("A4", true);
-    //    xlsx.write("A5", "http://qt-project.org");
-    //    xlsx.write("A6", QDate(2013, 12, 27));
-    //    xlsx.write("A7", QTime(6, 30));
-
-    //    xlsx.save();
 }
 
 QString NamingSystem::getExcelItemData(QString fileName, QString itemName){
     QXlsx::Document xlsx(fileName);
     QString itemData = xlsx.read(itemName).toString();
-    //qDebug() << "[" << __FUNCTION__ <<__LINE__ << "] :" << itemData;
     return itemData;
 }
 
